@@ -18,10 +18,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', function () {
     return view('Admin.login');
+})->name('login');
+
+Route::post('/AdminLogin', [AdminController::class, 'AdminLogin'])->name('AdminLogin');
+
+Route::group(['middleware' => 'adminMiddleware'], function () {
+
+    Route::get('/AdminLogout', [AdminController::class, 'logout'])->name('AdminLogout');
+
+    Route::get('/AdminDashboard', [AdminController::class, 'index'])->name("AdminDashboard");
+
+    Route::resource('/Company', CompaniesController::class);
+
+    Route::resource('/Employee', EmployeesController::class);
 });
-
-Route::get('/', [AdminController::class, 'index'])->name("AdminDashboard");
-
-Route::resource('/Company', CompaniesController::class);
-
-Route::resource('/Employee', EmployeesController::class);

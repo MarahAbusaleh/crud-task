@@ -69,7 +69,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('Employee.index') }}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ url('AdminLogout') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-logout"></i>
                                 </span>

@@ -13,6 +13,9 @@
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
+        @if (Session::has('alert'))
+            @include('sweetalert::alert')
+        @endif
         <div
             class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
             <div class="d-flex align-items-center justify-content-center w-100">
@@ -24,18 +27,26 @@
                                     <img src="logos/100x100_Logo_.png" width="180" alt="">
                                 </a>
                                 <p class="text-center">Access To Your Dashboard</p>
-                                <form>
+                                <form action="{{ route('AdminLogin') }}" method="post">
+                                    @csrf
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email"
+                                        <input type="email" class="form-control" id="email" name="email"
                                             aria-describedby="emailHelp">
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="mb-4">
                                         <label for="password" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="password">
+                                        <input type="password" class="form-control" id="password" name="password">
+                                        @if ($errors->has('password'))
+                                            <span class="text-danger">{{ $errors->first('password') }}</span>
+                                        @endif
                                     </div>
-                                    <a href="./index.html" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
-                                        In</a>
+                                    <a class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"><button
+                                            style="background:none;border: none;color:white" type="submit">Sign
+                                            In</button></a>
                                 </form>
                             </div>
                         </div>
